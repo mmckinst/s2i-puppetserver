@@ -11,7 +11,7 @@ RUN yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch
     yum -y install puppetserver-"$PUPPET_SERVER_VERSION" git which && \
     yum clean all && \
     gem install --no-rdoc --no-ri r10k
-RUN curl -o /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_amd64 && chmod +x /usr/local/bin/dumb-init
+RUN curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_amd64 && chmod +x /usr/local/bin/dumb-init
 
 RUN sed -i "/^JAVA_ARGS/cJAVA_ARGS='${PUPPETSERVER_JAVA_ARGS}'" /etc/sysconfig/puppetserver
 

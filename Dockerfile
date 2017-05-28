@@ -14,7 +14,7 @@ RUN useradd -u $PUPPET_USER_ID -r --gid puppet \
     --shell /bin/false --comment "puppetserver daemon" puppet
 
 # git is used by r10k
-# which is needed by puppetservers install script
+# the 'which' package is needed by puppetservers install script
 RUN yum -y install git which && \
     yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm && \
     yum -y install puppetserver-"$PUPPET_SERVER_VERSION" && \

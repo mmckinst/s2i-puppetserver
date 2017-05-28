@@ -7,8 +7,10 @@ ENV PUPPETSERVER_JAVA_ARGS="-Xms256m -Xmx256m"
 ENV PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 # git is used by r10k
-RUN yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm && \
-    yum -y install puppetserver-"$PUPPET_SERVER_VERSION" git which && \
+# which is needed by puppetservers install script
+RUN yum -y install git which && \
+    yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm && \
+    yum -y install puppetserver-"$PUPPET_SERVER_VERSION" && \
     yum clean all && \
     gem install --no-rdoc --no-ri r10k
 RUN curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_amd64 && chmod +x /usr/local/bin/dumb-init

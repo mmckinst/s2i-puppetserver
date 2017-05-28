@@ -4,7 +4,14 @@ MAINTAINER Mark McKinstry <mmckinst@redhat.com>
 ENV PUPPET_SERVER_VERSION="2.7.2"
 ENV DUMB_INIT_VERSION="1.2.0"
 ENV PUPPETSERVER_JAVA_ARGS="-Xms256m -Xmx256m"
+ENV PUPPET_USER_ID="1234"
+ENV PUPPET_GROUP_ID="1234"
 ENV PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
+
+RUN groupadd -g $PUPPET_GROUP_ID puppet
+RUN useradd -u $PUPPET_USER_ID -r --gid puppet \
+    --home /opt/puppetlabs/server/data/puppetserver \
+    --shell /bin/false --comment "puppetserver daemon" puppet
 
 # git is used by r10k
 # which is needed by puppetservers install script

@@ -29,6 +29,7 @@ COPY request-logging.xml /etc/puppetlabs/puppetserver/
 COPY Puppetfile Puppetfile
 COPY puppet.conf /etc/puppetlabs/puppet/
 COPY r10k.yaml /etc/puppetlabs/r10k/r10k.yaml
+COPY site.pp /etc/puppetlabs/puppet/manifests/site.pp
 
 VOLUME /etc/puppetlabs/puppet/ssl/ \
        /opt/puppetlabs/server/data/puppetserver/

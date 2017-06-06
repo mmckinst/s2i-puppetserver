@@ -14,7 +14,11 @@ RUN useradd -u $PUPPET_USER_ID -r --gid puppet \
     --shell /bin/false --comment "puppetserver daemon" puppet
 
 # git is used by r10k
-# the 'which' package is needed by puppetservers install script
+#
+# the 'which' package is needed by puppetserver's install script, the RPM will
+# include it in the future
+# https://github.com/puppetlabs/ezbake/commit/20f753585377ba72803e90b2ebb7e1d1c3ed58f4
+
 RUN yum -y install git which && \
     yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm && \
     yum -y install puppetserver-"$PUPPET_SERVER_VERSION" && \
@@ -29,6 +33,7 @@ COPY request-logging.xml /etc/puppetlabs/puppetserver/
 COPY Puppetfile Puppetfile
 COPY puppet.conf /etc/puppetlabs/puppet/
 COPY r10k.yaml /etc/puppetlabs/r10k/r10k.yaml
+COPY site.pp /etc/puppetlabs/puppet/manifests/site.pp
 
 VOLUME /etc/puppetlabs/puppet/ssl/ \
        /opt/puppetlabs/server/data/puppetserver/
